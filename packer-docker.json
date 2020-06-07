@@ -1,0 +1,35 @@
+{
+   "variables": {
+      "dockerhub_username": "{{env `DOCKERHUB_USERNAME`}}",
+      "dockerhub_password": "{{env `DOCKERHUB_PASSWORD`}}",
+      "repository": "sam2/my-image"
+   },
+   "builders": [{
+      "type": "docker",
+      "image": "centos",
+      "export_path": "/tmp/my-image.tar",
+      "ssh_pty": true,
+      "changes": [
+         "EXPOSE 3000"
+      ]
+   }],
+   "provisioners": [{
+      "type": "shell",
+      "script": "install.sh",
+      "timeout": "6m"
+   }],
+   "post-processors": [
+      [{
+            "type": "docker-import",
+            "repository": "{{user `repository`}}",
+            "tag": "{{ timestamp }}"
+         },
+         {
+            "type": "docker-push",
+            "login": "true",
+            "login_username": "{{user `dockerhub_username`}}",
+            "login_password": "{{user `dockerhub_password`}}"
+         }
+      ]
+   ]
+}
