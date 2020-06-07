@@ -1,0 +1,17 @@
+{
+        "image_version": "2"
+
+        "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+        "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+        "aws_region": "{{env `AWS_REGION`}}",
+
+        "iam_instance_profile": "stg_role_app_servers",
+        "instance_type": "t3.small",
+        "security_group_ids": "sg-006f4e2c60fb238f8",
+        "subnet_id": "subnet-033feced6b2a7a687",
+
+        "base_image": "RHEL-7.6_HVM_GA-20181017-*",
+        "owners": "309956199498",
+
+        "environment": "stg"
+}
